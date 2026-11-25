@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit transaction - SmartBudget</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Menu -->
+  <header class="menu">
+    <a class="logo" href="/"><span class="logo-mark"></span>SmartBudget</a>
+    <nav class="links">
+      <a href="/">Overview</a>
+      <a href="/transactions" class="active">Transactions</a>
+      <a href="/add">Add</a>
+      <a href="/budget">Budget</a>
+    </nav>
+    <div class="menu-right">
+      <select id="theme" aria-label="Theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="green">Green</option>
+        <option value="pink">Pink</option>
+      </select>
+      <div class="avatar">{{ session["username"][0]|upper }}</div>
+      <span class="who">{{ session["username"] }}</span>
+      <a href="/logout">Log out</a>
+    </div>
+  </header>
+
+  <main class="page">
+
+    {% for message in get_flashed_messages() %}
+      <p class="message">{{ message }}</p>
+    {% endfor %}
+
+    <h1>Edit transaction</h1>
+    <p class="subtitle">Change anything you got wrong, then save.</p>
+
+    <form class="box" method="post">
+
+      <label>Type</label>
+      <div class="segmented">
+        <div class="segmented-option">
+          <input type="radio" id="type-expense" name="type" value="expense" {% if transaction.type == "expense" %}checked{% endif %}>
+          <label for="type-expense">Expense</label>
+        </div>
+        <div class="segmented-option">
+          <input type="radio" id="type-income" name="type" value="income" {% if transaction.type == "income" %}checked{% endif %}>
+          <label for="type-income">Income</label>
+        </div>
+      </div>
+
+      <label for="amount">Amount (kr)</label>
+      <input id="amount" name="amount" type="number" min="0.01" step="0.01" value="{{ transaction.amount }}" required>
+
+      <label for="category">Category</label>
+      <select id="category" name="category_id">
+        {% for c in categories %}
+          <option value="{{ c.id }}" {% if c.id == transaction.category_id %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="date">Date</label>
+      <input id="date" name="date" type="date" value="{{ transaction.date }}" required>
+
+      <label for="description">Note (optional)</label>
+      <input id="description" name="description" type="text" maxlength="200" value="{{ transaction.description or '' }}">
+      <p class="hint"><span id="note-count">0</span> / 200</p>
+
+      <button class="button" type="submit">Save changes</button>
+    </form>
+
+    <p><a href="/transactions">Back to transactions</a></p>
+
+  </main>
+
+  <script src="/static/theme.js"></script>
+  <script src="/static/common.js"></script>
+  <script src="/static/form.js"></script>
+</body>
+</html>

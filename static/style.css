@@ -1,0 +1,743 @@
+/* ============ THEMES ============ */
+/* A theme is just a list of colours. The default theme is light. */
+/* --c1 to --c6 are the colours of the categories. */
+
+body {
+  --bg: #eef3f6;
+  --box: #ffffff;
+  --text: #14212b;
+  --grey: #55636d;
+  --line: #d9e2e8;
+  --main: #0b6e8a;
+  --main-text: #ffffff;
+  --good: #1a7f4b;
+  --warning-bg: #fdebd0;
+  --warning-text: #8a4b08;
+  --c1: #0b6e8a;
+  --c2: #c2410c;
+  --c3: #6d28d9;
+  --c4: #15803d;
+  --c5: #b91c1c;
+  --c6: #a16207;
+}
+
+body.dark {
+  --bg: #12141f;
+  --box: #1b1f2e;
+  --text: #edeff7;
+  --grey: #a3a9bf;
+  --line: #2d3347;
+  --main: #8fb8ff;
+  --main-text: #0b1020;
+  --good: #6fd3a0;
+  --warning-bg: #3a2c16;
+  --warning-text: #f5c27a;
+  --c1: #8fb8ff;
+  --c2: #fb923c;
+  --c3: #c4b5fd;
+  --c4: #6fd3a0;
+  --c5: #fca5a5;
+  --c6: #fcd34d;
+}
+
+body.green {
+  --bg: #eff3ec;
+  --box: #ffffff;
+  --text: #17251c;
+  --grey: #526256;
+  --line: #d7dfd2;
+  --main: #2f6b3f;
+  --main-text: #ffffff;
+  --good: #2f6b3f;
+  --warning-bg: #fdebd0;
+  --warning-text: #8a4b08;
+  --c1: #2f6b3f;
+  --c2: #c2410c;
+  --c3: #6d28d9;
+  --c4: #0b6e8a;
+  --c5: #b91c1c;
+  --c6: #a16207;
+}
+
+body.pink {
+  --bg: #f8eef3;
+  --box: #ffffff;
+  --text: #2a1624;
+  --grey: #6a5262;
+  --line: #e6d4dd;
+  --main: #a32a66;
+  --main-text: #ffffff;
+  --good: #1a7f4b;
+  --warning-bg: #fce9c8;
+  --warning-text: #7a4a00;
+  --c1: #a32a66;
+  --c2: #c2410c;
+  --c3: #6d28d9;
+  --c4: #15803d;
+  --c5: #0b6e8a;
+  --c6: #a16207;
+}
+
+
+/* ============ PAGE ============ */
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 20px 60px 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 0 0 16px 0;
+  font-size: 22px;
+}
+
+.subtitle {
+  margin: 4px 0 28px 0;
+  color: var(--grey);
+}
+
+a {
+  color: var(--main);
+}
+
+small {
+  color: var(--grey);
+}
+
+
+/* ============ MENU ============ */
+
+.menu {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: var(--box);
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--main);
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--main);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-right: auto;
+}
+
+.links a {
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.links a:hover {
+  background: var(--bg);
+}
+
+.links a.active {
+  background: var(--main);
+  color: var(--main-text);
+}
+
+.menu-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-right select {
+  width: auto;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--main);
+  color: var(--main-text);
+  font-weight: bold;
+}
+
+.who {
+  color: var(--grey);
+}
+
+
+/* ============ BOXES AND MESSAGES ============ */
+
+.box {
+  margin-bottom: 24px;
+  padding: 24px;
+  background: var(--box);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.two-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.two-columns .box {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* A normal message, like "Transaction saved." */
+.message {
+  margin: 0 0 20px 0;
+  padding: 12px 16px;
+  background: var(--box);
+  color: var(--text);
+  border: 1px solid var(--main);
+  border-radius: 10px;
+}
+
+/* An orange warning, like "You are over your budget." */
+.warning {
+  margin: 0 0 20px 0;
+  padding: 12px 16px;
+  background: var(--warning-bg);
+  color: var(--warning-text);
+  border: 1px solid var(--warning-text);
+  border-radius: 10px;
+}
+
+.empty {
+  margin: 0 0 16px 0;
+  color: var(--grey);
+}
+
+.page-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+
+/* ============ OVERVIEW PAGE ============ */
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+}
+
+/* The budget ring. The colour and the percent are set in the HTML and in dashboard.js. */
+.ring {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-inner {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--box);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.ring-inner strong {
+  font-size: 24px;
+}
+
+.ring-inner span {
+  font-size: 15px;
+  color: var(--grey);
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 220px;
+}
+
+.hero-label {
+  color: var(--grey);
+}
+
+.hero-big {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  margin: 4px 0 16px 0;
+  color: var(--grey);
+}
+
+/* The three number cards: income, expenses, balance */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.stat {
+  flex: 1;
+  min-width: 200px;
+  padding: 20px 24px;
+  background: var(--box);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--main);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-income {
+  border-top-color: var(--good);
+}
+
+.stat-expense {
+  border-top-color: var(--warning-text);
+}
+
+.stat-label {
+  color: var(--grey);
+}
+
+.stat-value {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.income {
+  color: var(--good);
+}
+
+/* Spending per category. Each category gets its own colour. */
+.category {
+  --cat: var(--main);
+  margin-bottom: 18px;
+}
+
+.cat-1 {
+  --cat: var(--c1);
+}
+
+.cat-2 {
+  --cat: var(--c2);
+}
+
+.cat-3 {
+  --cat: var(--c3);
+}
+
+.cat-4 {
+  --cat: var(--c4);
+}
+
+.cat-5 {
+  --cat: var(--c5);
+}
+
+.cat-6 {
+  --cat: var(--c6);
+}
+
+.category-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--cat);
+}
+
+.bar {
+  height: 12px;
+  border-radius: 6px;
+  background: var(--line);
+}
+
+.bar-fill {
+  height: 12px;
+  border-radius: 6px;
+  background: var(--cat);
+  transition: width 0.8s ease;
+}
+
+
+/* ============ LISTS OF TRANSACTIONS ============ */
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.row-text {
+  flex: 1;
+}
+
+.tag {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  font-size: 14px;
+  color: var(--grey);
+}
+
+.amount {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.row-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Search box and filter buttons on the Transactions page */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.filters input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.count {
+  margin: 0 0 8px 0;
+  font-size: 15px;
+  color: var(--grey);
+}
+
+
+/* ============ FORMS ============ */
+
+form.box {
+  max-width: 480px;
+}
+
+label {
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  background: var(--box);
+  color: var(--text);
+  border: 1px solid var(--grey);
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+input:focus,
+select:focus,
+.button:focus,
+a:focus {
+  outline: 3px solid var(--main);
+  outline-offset: 2px;
+}
+
+.hint {
+  margin: 6px 0 0 0;
+  font-size: 15px;
+  color: var(--grey);
+}
+
+.hint.ok {
+  color: var(--good);
+}
+
+.hint.bad {
+  color: var(--warning-text);
+}
+
+/* Password box with a Show button next to it */
+.password-box {
+  display: flex;
+  gap: 8px;
+}
+
+.password-box input {
+  flex: 1;
+}
+
+.password-box .button {
+  margin-top: 0;
+}
+
+/* The bar that shows how strong the password is */
+.strength {
+  height: 8px;
+  margin-top: 10px;
+  border-radius: 4px;
+  background: var(--line);
+}
+
+.strength-fill {
+  width: 0;
+  height: 8px;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Two big buttons: Expense and Income */
+.segmented {
+  display: flex;
+  gap: 8px;
+}
+
+.segmented-option {
+  position: relative;
+  flex: 1;
+}
+
+.segmented-option input {
+  position: absolute;
+  opacity: 0;
+}
+
+.segmented-option label {
+  display: block;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--grey);
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.segmented-option input:checked + label {
+  background: var(--main);
+  color: var(--main-text);
+  border-color: var(--main);
+}
+
+.segmented-option input:focus + label {
+  outline: 3px solid var(--main);
+  outline-offset: 2px;
+}
+
+
+/* ============ BUTTONS ============ */
+
+.button {
+  display: inline-block;
+  padding: 12px 22px;
+  background: var(--main);
+  color: var(--main-text);
+  border: 1px solid var(--main);
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button-light {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+.button-small {
+  padding: 8px 14px;
+  font-size: 16px;
+}
+
+form .button {
+  margin-top: 24px;
+}
+
+.row-buttons form .button {
+  margin-top: 0;
+}
+
+
+/* ============ LOGIN AND REGISTER ============ */
+
+.auth-layout {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+
+/* The coloured panel on the left */
+.auth-side {
+  position: relative;
+  flex: 1;
+  min-width: 320px;
+  padding: 48px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--main);
+  color: var(--main-text);
+}
+
+.auth-logo {
+  margin-bottom: 24px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.auth-title {
+  max-width: 420px;
+  margin: 0 0 24px 0;
+  font-size: 40px;
+  line-height: 1.2;
+}
+
+.auth-points {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 20px;
+  line-height: 1.9;
+}
+
+/* Soft round shapes for decoration */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--main-text);
+  opacity: 0.1;
+}
+
+.circle-1 {
+  right: -80px;
+  bottom: -80px;
+  width: 300px;
+  height: 300px;
+}
+
+.circle-2 {
+  right: 120px;
+  bottom: 160px;
+  width: 120px;
+  height: 120px;
+}
+
+/* The white part with the form */
+.auth-main {
+  flex: 1;
+  min-width: 320px;
+  padding: 32px 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-main .box {
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+
+.auth-main h1 {
+  margin-bottom: 8px;
+  font-size: 30px;
+}
+
+.auth-switch {
+  margin: 20px 0 0 0;
+  text-align: center;
+}
+
+
+/* ============ LESS MOVEMENT ============ */
+/* People who turned off animations in their system get no animations. */
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-fill,
+  .strength-fill {
+    transition: none;
+  }
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create account - SmartBudget</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <div class="auth-layout">
+
+    <!-- Coloured panel -->
+    <div class="auth-side">
+      <div class="auth-logo">SmartBudget</div>
+      <h2 class="auth-title">Start with a free account.</h2>
+      <ul class="auth-points">
+        <li>Your money notes are private to you</li>
+        <li>Works on your phone and your computer</li>
+        <li>Pick a theme you like</li>
+      </ul>
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+    </div>
+
+    <!-- Sign up form -->
+    <div class="auth-main">
+      <div class="box">
+        <h1>Create account</h1>
+        <p class="subtitle">It takes less than a minute.</p>
+
+        {% for message in get_flashed_messages() %}
+          <p class="message">{{ message }}</p>
+        {% endfor %}
+
+        <form id="signup-form" method="post">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" required autofocus>
+          <p class="hint" id="username-hint">3 to 30 characters. Letters, numbers and _</p>
+
+          <label for="password">Password</label>
+          <div class="password-box">
+            <input id="password" name="password" type="password" minlength="8" required>
+            <button class="button button-light show-password" type="button" data-target="password">Show</button>
+          </div>
+          <div class="strength"><div class="strength-fill" id="strength-fill"></div></div>
+          <p class="hint" id="password-hint">At least 8 characters.</p>
+
+          <label for="confirm">Repeat password</label>
+          <input id="confirm" name="confirm" type="password" required>
+          <p class="hint" id="confirm-hint">Write the same password again.</p>
+
+          <button class="button" type="submit">Create account</button>
+        </form>
+
+        <p class="auth-switch">Already have an account? <a href="/login">Log in</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/static/theme.js"></script>
+  <script src="/static/common.js"></script>
+  <script src="/static/register.js"></script>
+</body>
+</html>

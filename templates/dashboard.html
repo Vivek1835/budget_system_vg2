@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overview - SmartBudget</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Menu -->
+  <header class="menu">
+    <a class="logo" href="/"><span class="logo-mark"></span>SmartBudget</a>
+    <nav class="links">
+      <a href="/" class="active">Overview</a>
+      <a href="/transactions">Transactions</a>
+      <a href="/add">Add</a>
+      <a href="/budget">Budget</a>
+    </nav>
+    <div class="menu-right">
+      <select id="theme" aria-label="Theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="green">Green</option>
+        <option value="pink">Pink</option>
+      </select>
+      <div class="avatar">{{ session["username"][0]|upper }}</div>
+      <span class="who">{{ session["username"] }}</span>
+      <a href="/logout">Log out</a>
+    </div>
+  </header>
+
+  <main class="page">
+
+    {% for message in get_flashed_messages() %}
+      <p class="message">{{ message }}</p>
+    {% endfor %}
+
+    <h1 id="greeting" data-name="{{ session['username'] }}">Hi, {{ session["username"] }}</h1>
+    <p class="subtitle">This is how {{ month_name }} is going.</p>
+
+    <!-- Warning when the user is close to the budget or over it -->
+    {% if warning_text %}
+      <p class="warning">{{ warning_text }}</p>
+    {% endif %}
+
+    <!-- Budget ring -->
+    <section class="box hero">
+
+      <div class="ring" id="ring" data-percent="{{ ring_percent }}" data-color="{{ ring_color }}"
+           style="background: conic-gradient({{ ring_color }} {{ ring_percent }}%, var(--line) 0)">
+        <div class="ring-inner">
+          <strong>{{ ring_big }}</strong>
+          <span>{{ ring_small }}</span>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="hero-label">Monthly budget</div>
+        <div class="hero-big">{{ budget_text }}</div>
+
+        {% if has_budget %}
+          <p>You have used {{ percent_used }}% this month.</p>
+          <a class="button button-small" href="/budget">Change budget</a>
+        {% else %}
+          <p>Set a budget to see how much you can spend.</p>
+          <a class="button button-small" href="/budget">Set a budget</a>
+        {% endif %}
+      </div>
+
+    </section>
+
+    <!-- Income, expenses and balance -->
+    <div class="stats">
+      <div class="stat stat-income">
+        <div class="stat-label">Income</div>
+        <div class="stat-value income">{{ income_text }}</div>
+      </div>
+      <div class="stat stat-expense">
+        <div class="stat-label">Expenses</div>
+        <div class="stat-value">{{ expenses_text }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Balance</div>
+        <div class="stat-value">{{ balance_text }}</div>
+      </div>
+    </div>
+
+    <div class="two-columns">
+
+      <!-- Spending per category -->
+      <section class="box">
+        <h2>Spending by category</h2>
+
+        {% for c in categories %}
+          <div class="category cat-{{ loop.index }}">
+            <div class="category-top">
+              <span><span class="dot"></span>{{ c.name }}</span>
+              <span>{{ c.total_text }}</span>
+            </div>
+            <div class="bar">
+              <div class="bar-fill" data-percent="{{ c.percent }}" style="width: {{ c.percent }}%"></div>
+            </div>
+          </div>
+        {% else %}
+          <p class="empty">No expenses yet this month.</p>
+          <a class="button button-small" href="/add">Add an expense</a>
+        {% endfor %}
+      </section>
+
+      <!-- Latest transactions -->
+      <section class="box">
+        <h2>Latest transactions</h2>
+
+        {% for t in recent %}
+          <div class="row">
+            <div class="row-text">
+              {{ t.description or t.category }}<br>
+              <small><span class="tag">{{ t.category }}</span>{{ t.date }}</small>
+            </div>
+            {% if t.type == "income" %}
+              <div class="amount income">+ {{ t.amount_text }}</div>
+            {% else %}
+              <div class="amount">- {{ t.amount_text }}</div>
+            {% endif %}
+          </div>
+        {% else %}
+          <p class="empty">Nothing here yet.</p>
+        {% endfor %}
+
+        <p><a class="button" href="/add">Add transaction</a></p>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="/static/theme.js"></script>
+  <script src="/static/common.js"></script>
+  <script src="/static/dashboard.js"></script>
+</body>
+</html>

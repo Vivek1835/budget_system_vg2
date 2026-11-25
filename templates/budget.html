@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Budget - SmartBudget</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Menu -->
+  <header class="menu">
+    <a class="logo" href="/"><span class="logo-mark"></span>SmartBudget</a>
+    <nav class="links">
+      <a href="/">Overview</a>
+      <a href="/transactions">Transactions</a>
+      <a href="/add">Add</a>
+      <a href="/budget" class="active">Budget</a>
+    </nav>
+    <div class="menu-right">
+      <select id="theme" aria-label="Theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="green">Green</option>
+        <option value="pink">Pink</option>
+      </select>
+      <div class="avatar">{{ session["username"][0]|upper }}</div>
+      <span class="who">{{ session["username"] }}</span>
+      <a href="/logout">Log out</a>
+    </div>
+  </header>
+
+  <main class="page">
+
+    {% for message in get_flashed_messages() %}
+      <p class="message">{{ message }}</p>
+    {% endfor %}
+
+    <h1>Monthly budget</h1>
+    <p class="subtitle">You get a warning when you have used 80% of it.</p>
+
+    <form class="box" method="post">
+
+      <label for="limit">How much do you want to spend each month? (kr)</label>
+      <input id="limit" name="limit" type="number" min="1" step="1" value="{{ limit_value }}" required>
+      <p class="hint" id="preview"></p>
+
+      {% if has_budget %}
+        <p class="hint">So far this month: {{ expenses_text }} ({{ percent_used }}%).</p>
+      {% endif %}
+
+      <button class="button" type="submit">Save budget</button>
+    </form>
+
+  </main>
+
+  <script src="/static/theme.js"></script>
+  <script src="/static/common.js"></script>
+  <script src="/static/budget.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transactions - SmartBudget</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Menu -->
+  <header class="menu">
+    <a class="logo" href="/"><span class="logo-mark"></span>SmartBudget</a>
+    <nav class="links">
+      <a href="/">Overview</a>
+      <a href="/transactions" class="active">Transactions</a>
+      <a href="/add">Add</a>
+      <a href="/budget">Budget</a>
+    </nav>
+    <div class="menu-right">
+      <select id="theme" aria-label="Theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="green">Green</option>
+        <option value="pink">Pink</option>
+      </select>
+      <div class="avatar">{{ session["username"][0]|upper }}</div>
+      <span class="who">{{ session["username"] }}</span>
+      <a href="/logout">Log out</a>
+    </div>
+  </header>
+
+  <main class="page">
+
+    {% for message in get_flashed_messages() %}
+      <p class="message">{{ message }}</p>
+    {% endfor %}
+
+    <div class="page-top">
+      <h1>Transactions</h1>
+      <a class="button" href="/add">Add transaction</a>
+    </div>
+
+    <section class="box">
+
+      {% if transactions %}
+
+        <!-- Search and filter (the work is done in transactions.js) -->
+        <div class="filters">
+          <input id="search" type="text" placeholder="Search by note or category" aria-label="Search">
+
+          <div class="filter-buttons">
+            <button class="button button-small filter-button" type="button" data-filter="all">All</button>
+            <button class="button button-light button-small filter-button" type="button" data-filter="income">Income</button>
+            <button class="button button-light button-small filter-button" type="button" data-filter="expense">Expenses</button>
+          </div>
+        </div>
+
+        <p class="count" id="count"></p>
+
+        {% for t in transactions %}
+          <div class="row transaction-row" data-type="{{ t.type }}" data-search="{{ t.description or '' }} {{ t.category }}">
+            <div class="row-text">
+              {{ t.description or t.category }}<br>
+              <small><span class="tag">{{ t.category }}</span>{{ t.date }}</small>
+            </div>
+
+            {% if t.type == "income" %}
+              <div class="amount income">+ {{ t.amount_text }}</div>
+            {% else %}
+              <div class="amount">- {{ t.amount_text }}</div>
+            {% endif %}
+
+            <div class="row-buttons">
+              <a class="button button-light button-small" href="/edit/{{ t.id }}">Edit</a>
+
+              <form method="post" action="/delete/{{ t.id }}" onsubmit="return confirm('Delete this transaction?')">
+                <button class="button button-light button-small" type="submit">Delete</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+
+        <p class="empty" id="no-results" style="display: none">No transactions match your search.</p>
+
+      {% else %}
+        <p class="empty">No transactions yet.</p>
+        <a class="button" href="/add">Add your first one</a>
+      {% endif %}
+
+    </section>
+
+  </main>
+
+  <script src="/static/theme.js"></script>
+  <script src="/static/common.js"></script>
+  {% if transactions %}
+    <script src="/static/transactions.js"></script>
+  {% endif %}
+</body>
+</html>
