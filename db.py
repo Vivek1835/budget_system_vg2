@@ -1,5 +1,6 @@
 # db.py - everything that talks to the database is here.
-# The database password is NOT written in the code. It comes from the .env file.
+# The database address and password are NOT written in the code.
+# They come from the .env file.
 
 import os
 import pymysql
@@ -9,15 +10,41 @@ load_dotenv()
 
 
 def get_connection():
-    # Open a connection to MariaDB.
+    # Open a connection to the database.
     # DictCursor means every row comes back as a dictionary, like row["name"].
-    connection = pymysql.connect(
-        host=os.getenv("DB_HOST", "localhost"),
-        user=os.getenv("DB_USER", "budget_app"),
-        password=os.getenv("DB_PASSWORD", ""),
-        database=os.getenv("DB_NAME", "smartbudget"),
-        cursorclass=pymysql.cursors.DictCursor,
-    )
+
+    host = os.getenv("DB_HOST", "localhost")
+    port = int(os.getenv("DB_PORT", "3306"))
+    user = os.getenv("DB_USER", "budget_app")
+    password = os.getenv("DB_PASSWORD", "")
+    database = os.getenv("DB_NAME", "smartbudget")
+    ca_file = os.getenv("DB_SSL_CA", "")
+
+    if ca_file != "":
+        # An online database (like TiDB Cloud) needs an encrypted connection.
+        # ca_file is the file that lets us check that the server is the real one.
+        connection = pymysql.connect(
+            host=host,
+            port=port,
+            user=user,
+            password=password,
+            database=database,
+            cursorclass=pymysql.cursors.DictCursor,
+            ssl_ca=ca_file,
+            ssl_verify_cert=True,
+            ssl_verify_identity=True,
+        )
+    else:
+        # A database on the same computer (localhost) needs no encryption.
+        connection = pymysql.connect(
+            host=host,
+            port=port,
+            user=user,
+            password=password,
+            database=database,
+            cursorclass=pymysql.cursors.DictCursor,
+        )
+
     return connection
 
 
@@ -49,3 +76,4 @@ def run_command(sql, values=()):
     cursor.execute(sql, values)
     connection.commit()
     connection.close()
+    
